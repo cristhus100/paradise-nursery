@@ -15,14 +15,17 @@ function CartItem() {
   const cartItems = useSelector(selectCartItems)
   const cartTotal = useSelector(selectCartTotal)
 
+  // Elimina un articulo del carrito por su nombre
   const handleRemove = (item) => {
     dispatch(removeItem(item.name))
   }
 
+  // Muestra mensaje de pago proximamente
   const handleCheckout = () => {
     alert('Proximamente disponible')
   }
 
+  // Estado vacio: muestra mensaje y enlace para seguir comprando
   if (cartItems.length === 0) {
     return (
       <div className="cart-page">
@@ -38,6 +41,7 @@ function CartItem() {
     )
   }
 
+  // Calcula total dinamicamente con Redux selectors
   return (
     <div className="cart-page">
       <Navbar />
@@ -46,14 +50,17 @@ function CartItem() {
         <div className="cart-items">
           {cartItems.map((item) => (
             <div key={item.id} className="cart-item">
+              {/* Miniatura de la planta */}
               <img
                 src={item.image}
                 alt={item.name}
                 className="cart-item-image"
               />
+              {/* Detalles: nombre y precio unitario */}
               <div className="cart-item-details">
                 <h3>{item.name}</h3>
                 <p className="cart-item-price">${item.price.toFixed(2)}</p>
+                {/* Controles de cantidad */}
                 <div className="cart-item-controls">
                   <button
                     className="qty-btn"
@@ -70,6 +77,7 @@ function CartItem() {
                   </button>
                 </div>
               </div>
+              {/* Total por articulo y boton eliminar */}
               <div className="cart-item-total-section">
                 <p className="cart-item-subtotal">
                   ${(item.price * item.quantity).toFixed(2)}
@@ -84,6 +92,7 @@ function CartItem() {
             </div>
           ))}
         </div>
+        {/* Resumen del carrito */}
         <div className="cart-summary">
           <div className="cart-total">
             <span>Total del Carrito:</span>

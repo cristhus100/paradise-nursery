@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, selectCartItems } from '../features/cart/CartSlice'
+import { addItem, selectCartItems } from '../features/cart/CartSlice'
 import Navbar from './Navbar'
 import { categories } from '../data/products'
 
@@ -14,7 +14,7 @@ function ProductList() {
   const isInCart = (plantId) => cartItems.some(item => item.id === plantId)
 
   const handleAddToCart = (plant) => {
-    dispatch(addToCart(plant))
+    dispatch(addItem(plant))
   }
 
   return (
