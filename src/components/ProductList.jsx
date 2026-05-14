@@ -7,14 +7,24 @@ import { categories } from '../data/products'
 function ProductList() {
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
+  const cartCount = useSelector((state) =>
+    state.cart.items.reduce((count, item) => count + item.quantity, 0)
+  )
 
   const isInCart = (plantId) => cartItems.some(item => item.id === plantId)
+
+  const handleAddToCart = (plant) => {
+    dispatch(addToCart(plant))
+  }
 
   return (
     <div className="product-page">
       <Navbar />
       <div className="product-container">
         <h1 className="product-title">Nuestras Plantas</h1>
+        <p className="cart-count-text">
+          Articulos en tu carrito: {cartCount}
+        </p>
         {categories.map((category) => (
           <section key={category.id} className="category-section">
             <div className="category-header">
@@ -37,7 +47,7 @@ function ProductList() {
                     <p className="plant-price">${plant.price.toFixed(2)}</p>
                     <button
                       className={`add-to-cart-btn ${isInCart(plant.id) ? 'added' : ''}`}
-                      onClick={() => dispatch(addToCart(plant))}
+                      onClick={() => handleAddToCart(plant)}
                       disabled={isInCart(plant.id)}
                     >
                       {isInCart(plant.id) ? 'Agregado' : 'Agregar al Carrito'}
