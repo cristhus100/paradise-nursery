@@ -6,7 +6,7 @@ import {
   selectCartTotal,
   increaseQuantity,
   decreaseQuantity,
-  removeFromCart
+  removeItem
 } from '../features/cart/CartSlice'
 import Navbar from './Navbar'
 
@@ -14,6 +14,14 @@ function CartItem() {
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
   const cartTotal = useSelector(selectCartTotal)
+
+  const handleRemove = (item) => {
+    dispatch(removeItem(item.name))
+  }
+
+  const handleCheckout = () => {
+    alert('Proximamente disponible')
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -68,7 +76,7 @@ function CartItem() {
                 </p>
                 <button
                   className="remove-btn"
-                  onClick={() => dispatch(removeFromCart(item.id))}
+                  onClick={() => handleRemove(item)}
                 >
                   Eliminar
                 </button>
@@ -89,7 +97,7 @@ function CartItem() {
             </Link>
             <button
               className="checkout-btn"
-              onClick={() => alert('Proximamente disponible')}
+              onClick={handleCheckout}
             >
               Procesar Pago
             </button>
